@@ -1,4 +1,3 @@
-/* eslint-disable */
 const settings = {
   url: 'https://restcountries.eu/rest/v2/all',
   method: 'GET',
@@ -19,7 +18,7 @@ $('#form').submit(function(event) {
 });
 //
 $(document).ready(function() {
-  //map start
+  // map start
   const app = new Mapp({
     element: '#app',
     presets: {
@@ -31,17 +30,21 @@ $(document).ready(function() {
     },
     apiKey:
       'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjNjNzk2ZDgyM2Q4NGI5MDczYTVhMzk1YWI0YWU2MTZlMjE1MWExZDMyZmFmMjhiMmUyZjNlMDFkNzRmZTRhZWQ4YjhmMmZiNGY5NzFkZmIzIn0.eyJhdWQiOiI5NTI5IiwianRpIjoiM2M3OTZkODIzZDg0YjkwNzNhNWEzOTVhYjRhZTYxNmUyMTUxYTFkMzJmYWYyOGIyZTJmM2UwMWQ3NGZlNGFlZDhiOGYyZmI0Zjk3MWRmYjMiLCJpYXQiOjE1OTE0NDUzMjksIm5iZiI6MTU5MTQ0NTMyOSwiZXhwIjoxNTk0MDM3MzI5LCJzdWIiOiIiLCJzY29wZXMiOlsiYmFzaWMiXX0.r6d7NdhY0jwA_39wrChHvjQbnLTpseQU1GjpOcOnR3YWbrxBTGxCyS6Fm9fa3SEnXPdx46W1XwX_lwBddTS5h2B40vCHeyqV9SdI5mV6xI1NFJ0iGNJJz_7SusuPAKDy41xZuJywvihLLW5aUTk9wpmNuXiOY8gM8MOsnK__YSbVLp2Kle301sP7t5dnL5SNLFjQSdcDz6eOE6Sw_kEwOLo6aYpGBlUrYuBsuMvZI--3tAFFbdppbt-TjnzurV6h0lOC18Nm4WFZFOXwRzD5NgqwjBlbOVGeRPWNQWOLruEluoHNV-JQ3cKDRsoiGtxntKFmOWyVzHYc9lecAhzf_g',
-  });    
+  });
   app.addLayers();
-  //map ready
+  // map ready
   $('#select').change(function() {
-    $('.first-row').removeClass('d-none')
-    $('.weather').removeClass('d-none')
+    // animate
+    $('.first-row').removeClass('closed1');
+    $('.second-row').removeClass('closed2');
+    $('img').animate({ opacity: '0' }, 'fast');
+    $('.info').animate({ opacity: '0' }, 'fast');
+    $('.calling-code').animate({ opacity: '0' }, 'fast');
+    // get info
     $.ajax({
       url: `https://restcountries.eu/rest/v2/alpha/${$(this).val()}`,
       method: 'GET',
     }).done(function(response) {
-
       // info
       $('.info').html(`
       <h3>${response.name}</h3>
@@ -74,13 +77,13 @@ $(document).ready(function() {
       // map
 
       // console.log(app);
-      // // app.map._lastCenter.lat =response.latlng[0]  
+      // // app.map._lastCenter.lat =response.latlng[0]
       // // app.map._lastCenter.lng=response.latlng[1]
       // console.log(response.latlng[0]);
       // console.log(response.latlng[1]);
       // console.log(app.map._lastCenter.lat);
       // console.log(app.map._lastCenter.lng);
-      
+
       app.addMarker({
         name: 'basic-marker',
         latlng: {
@@ -91,8 +94,12 @@ $(document).ready(function() {
           title: {
             html: `${response.translations.fa}`,
           },
-          open:true,}
+          open: true,
+        },
       });
     });
+    $('img').animate({ opacity: '1' }, 'slow');
+    $('.info').animate({ opacity: '1' }, 'slow');
+    $('.calling-code').animate({ opacity: '1' }, 'slow');
   });
 });

@@ -6,6 +6,7 @@
 body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
     background-image: url(./bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -17,6 +18,8 @@ body {
     height: 50vh;
     justify-content: space-between;
     letter-spacing: 3px;
+    transform: translateX(0);
+    transition: transform 1.5s;
 }
 
 .info {
@@ -49,6 +52,8 @@ strong {
     overflow: hidden;
     display: flex;
     justify-content: space-around;
+    transform: translateX(0);
+    transition: transform 2s;
 }
 
 .call {
@@ -99,6 +104,16 @@ strong {
     background-color: rgba(100, 100, 100, 0.788);
     color: white;
     letter-spacing: 3px;
+}
+
+.closed1 {
+    visibility: hidden;
+    transform: translateX(-200vw);
+}
+
+.closed2 {
+    visibility: hidden;
+    transform: translateX(200vw);
 }
 
 @font-face {
