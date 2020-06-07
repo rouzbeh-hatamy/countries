@@ -60,13 +60,13 @@ $(document).ready(function() {
       $('.flag img').attr('src', response.flag);
       // weather
       $.ajax({
-        url: `http://api.openweathermap.org/data/2.5/weather?q=${
+        url: `https://api.openweathermap.org/data/2.5/weather?q=${
           response.capital
         }&appid=249a5e3bd1fa12d2e9371b9a3ce677ae`,
         method: 'GET',
       }).done(function(response) {
         $('.weather-div').html(`
-          <img src="http://openweathermap.org/img/wn/${
+          <img src="https://openweathermap.org/img/wn/${
             response.weather[0].icon
           }@2x.png" alt="">
           <p><strong>wind speed:</strong>${response.wind.speed}</p>
