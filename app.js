@@ -64,40 +64,37 @@ $(document).ready(function() {
           response.capital
         }&appid=249a5e3bd1fa12d2e9371b9a3ce677ae`,
         method: 'GET',
-      }).done(function(response) {
+      }).done(function(responsew) {
         $('.weather-div').html(`
           <img src="https://openweathermap.org/img/wn/${
-            response.weather[0].icon
+            responsew.weather[0].icon
           }@2x.png" alt="">
-          <p><strong>wind speed:</strong>${response.wind.speed}</p>
-          <p><strong>temperature:</strong> ${response.main.temp}</p>
-          <p><strong>humadity:</strong> ${response.main.humidity}</p>
-          <p><strong>visibility:</strong> ${response.visibility}</p>`);
-      });
-      // map
-
-      // console.log(app);
-      // // app.map._lastCenter.lat =response.latlng[0]
-      // // app.map._lastCenter.lng=response.latlng[1]
-      // console.log(response.latlng[0]);
-      // console.log(response.latlng[1]);
-      // console.log(app.map._lastCenter.lat);
-      // console.log(app.map._lastCenter.lng);
-
-      app.addMarker({
-        name: 'basic-marker',
-        latlng: {
-          lat: response.latlng[0],
-          lng: response.latlng[1],
-        },
-        popup: {
-          title: {
-            html: `${response.translations.fa}`,
+          <p><strong>weather status:</strong> ${
+            responsew.weather[0].description
+          }</p>
+          <p><strong>wind speed:</strong>${responsew.wind.speed}m/s</p>
+          <p><strong>temperature:</strong> ${Math.round(
+            responsew.main.temp - 273.15
+          )}°C</p>
+          <p><strong>humadity:</strong> ${responsew.main.humidity}%</p>
+          `);
+        //
+        app.addMarker({
+          name: 'basic-marker',
+          latlng: {
+            lat: responsew.coord.lat,
+            lng: responsew.coord.lon,
           },
-          open: true,
-        },
+          popup: {
+            title: {
+              html: `${response.translations.fa}`,
+            },
+            open: true,
+          },
+        });
       });
     });
+
     $('img').animate({ opacity: '1' }, 'slow');
     $('.info').animate({ opacity: '1' }, 'slow');
     $('.calling-code').animate({ opacity: '1' }, 'slow');
