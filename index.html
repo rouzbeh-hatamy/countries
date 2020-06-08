@@ -16,7 +16,12 @@
 </head>
 
 <body>
+    <!-- preloader -->
+    <div class="preloader ">
+        <div class="loader"></div>
+    </div>
     <div class="container">
+        <!-- select countery div -->
         <div class=" d-block select-row mb-5 col-12 ">
             <h1> select a country</h1>
             <div class="form-group">
@@ -26,23 +31,29 @@
                 </select>
             </div>
         </div>
+        <!-- on change information -->
         <div class="all-info">
             <div class=" first-row d-md-flex justify-content-md-between closed1">
+                <!-- country info -->
                 <div class="info my-3 col-12 col-md-4 w-100"></div>
+                <!-- calling info -->
                 <div class="call my-3 col-12 col-md-3 w-100">
                     <h3>Calling Code</h3>
                     <div class="calling-code"></div>
                 </div>
+                <!-- flag -->
                 <div class="flag my-3 col-12 col-md-4 w-100">
                     <img src="" alt="">
                 </div>
             </div>
             <div class="second-row my-5 d-md-flex justify-content-md-around closed2">
+                <!-- weather info -->
                 <div class="weather  my-3 col-12 col-md-5 w-100 ">
                     <h3>Capital Weather Report</h3>
                     <div class="weather-div ">
                     </div>
                 </div>
+                <!-- map -->
                 <div class="map  my-3 col-12 col-md-5 w-100">
                     <div id="app"></div>
                 </div>

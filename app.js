@@ -1,23 +1,25 @@
-const settings = {
-  url: 'https://restcountries.eu/rest/v2/all',
-  method: 'GET',
-  timeout: 0,
-};
-//
-$.ajax(settings).done(function(response) {
-  response.forEach(element => {
-    $('#select').append(
-      `<option value=${element.alpha3Code}> ${element.name}</option>`
-    );
-  });
+// loader
+$(window).on('load', function() {
+  setTimeout(function() {
+    $('.loader').fadeOut();
+    $('.preloader').addClass('complete');
+  }, 2000);
 });
-//
-$('#form').submit(function(event) {
-  event.preventDefault();
-  console.log('hi');
-});
-//
 $(document).ready(function() {
+  // countries information request settings
+  const settings = {
+    url: 'https://restcountries.eu/rest/v2/all',
+    method: 'GET',
+    timeout: 0,
+  };
+  // countries information request for names
+  $.ajax(settings).done(function(response) {
+    response.forEach(element => {
+      $('#select').append(
+        `<option value=${element.alpha3Code}> ${element.name}</option>`
+      );
+    });
+  });
   // map start
   const app = new Mapp({
     element: '#app',
@@ -33,6 +35,7 @@ $(document).ready(function() {
   });
   app.addLayers();
   // map ready
+  // on change country
   $('#select').change(function() {
     // animate
     $('.first-row').removeClass('closed1');
@@ -45,7 +48,8 @@ $(document).ready(function() {
       url: `https://restcountries.eu/rest/v2/alpha/${$(this).val()}`,
       method: 'GET',
     }).done(function(response) {
-      // info
+      // add info to dom
+      // country's information
       $('.info').html(`
       <h3>${response.name}</h3>
       <p><strong>Native name:</strong>${response.nativeName}</p>
@@ -58,13 +62,14 @@ $(document).ready(function() {
       $('.calling-code').html(`<h1>${response.callingCodes}</h1>`);
       // flag
       $('.flag img').attr('src', response.flag);
-      // weather
+      // weather request
       $.ajax({
         url: `https://api.openweathermap.org/data/2.5/weather?q=${
           response.capital
         }&appid=249a5e3bd1fa12d2e9371b9a3ce677ae`,
         method: 'GET',
       }).done(function(responsew) {
+        // add weather to dom
         $('.weather-div').html(`
           <img src="https://openweathermap.org/img/wn/${
             responsew.weather[0].icon
@@ -78,7 +83,7 @@ $(document).ready(function() {
           )}°C</p>
           <p><strong>humadity:</strong> ${responsew.main.humidity}%</p>
           `);
-        //
+        // add marker to map and change it for every country
         app.addMarker({
           name: 'basic-marker',
           latlng: {
@@ -94,7 +99,7 @@ $(document).ready(function() {
         });
       });
     });
-
+    // animate after changes are done
     $('img').animate({ opacity: '1' }, 'slow');
     $('.info').animate({ opacity: '1' }, 'slow');
     $('.calling-code').animate({ opacity: '1' }, 'slow');
